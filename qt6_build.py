@@ -18,7 +18,7 @@ from target_qt6_version import qt_version, llvm_version, msvc_build, msvc_dir_na
 build_opts = ["-no-static", "-release", "-opensource", "-confirm-license", "-nomake", "examples",
 	"-nomake", "tests", "-no-feature-tuiotouch", "-qt-libpng", "-qt-libjpeg", "-qt-libb2", "-no-glib",
 	"-qt-tiff", "-qt-webp", "-qt-pcre", "-no-feature-zstd", "-no-feature-brotli", "-no-feature-graphicseffect",
-	"-no-feature-style-windowsvista", "-no-feature-style-windows11"]
+	"-no-feature-style-windowsvista", "-no-feature-style-windows11", "-no-feature-vulkan"]
 
 if sys.platform == 'linux':
 	build_opts += ["-xcb", "-xcb-xlib"]
@@ -156,9 +156,7 @@ if sys.platform == 'win32':
 	os.environ["HOME"] = os.environ["HOMEDRIVE"] + os.environ["HOMEPATH"]
 
 if "LLVM_INSTALL_DIR" in os.environ:
-	llvm_dir = os.path.join(os.environ["LLVM_INSTALL_DIR"], llvm_version)
-else:
-	llvm_dir = os.path.join(os.environ["HOME"], "libclang", llvm_version)
+	llvm_dir = os.environ["LLVM_INSTALL_DIR"]
 if not os.path.exists(llvm_dir):
 	print("libclang needs to be installed.")
 	print(f'Set LLVM_INSTALL_DIR, or install to f{os.path.join(os.environ["HOME"], "libclang", llvm_version)}')
